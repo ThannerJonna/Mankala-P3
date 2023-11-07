@@ -118,17 +118,24 @@ namespace Mankala
     {
         public override int Move(Board b, int start)
         {
-            int stones = pits[place];
-            pits[place] = 0;
+            int place = start;
+            int stones = b.pits[place];
+            b.pits[place] = 0;
             while (stones > 0)
             {
-                place++;
-                if (IsNonScoringPit(place))
+                place--;
+                if (!IsScoringPit(b.pits, place))
                 {
-                    pits[place % pits.Length]++;
+                    b.pits[place % b.pits.Length]++;
                     stones--;
                 }
             }
+            return place;
+        }
+
+        protected bool IsScoringPit(int[] boardPits, int place)
+        {
+            return place == 0 || place == 1 / 2 * boardPits.Length;
         }
     }
 
@@ -141,7 +148,7 @@ namespace Mankala
             b.pits[place] = 0;
             while (stones > 0)
             {
-                place++;
+                place--;
                 b.pits[place % b.pits.Length]++;
                 stones--;
             }
