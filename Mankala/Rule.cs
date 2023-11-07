@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Mankala
 {
@@ -11,9 +12,10 @@ namespace Mankala
     {
         public EndGameRule() { }
 
-        public abstract bool GameIsEnded(Board b);
+        public abstract bool GameIsEnded(Board b, player upToGo);
 
-        public abstract player Winner(Board b);
+        //returns player number of winner or returns 0 if a draw
+        public abstract int Winner(Board b);
     }
 
     internal abstract class EndOfTurnRule
@@ -40,25 +42,51 @@ namespace Mankala
 
     internal class MankalaEndGame : EndGameRule
     {
-        public override bool GameIsEnded(Board b)
+        public override bool GameIsEnded(Board b, player upToGo)
         {
-            throw new NotImplementedException();
+            int start;
+            int end;
+
+            if (upToGo == player.P1)
+            {
+                start = 1;
+                end = b.pits.Length * 1 / 2;
+            }
+            else
+            {
+                start = b.pits.Length / 2 + 1;
+                end = b.pits.Length;
+            }
+
+            for (int i = start; i < end; i++)
+            {
+                if (b.pits[i] > 0)
+                    return false;
+            }
+            return true;
         }
 
-        public override player Winner(Board b)
+        public override int Winner(Board b)
         {
-            throw new NotImplementedException();
+            int score1 = b.pits[0];
+            int score2 = b.pits[b.pits.Length / 2];
+
+            if (score1 > score2)
+                return 1;
+            else if (score1 < score2)
+                return 2;
+            return 0;
         }
     }
 
     internal class WariEndGame : EndGameRule
     {
-        public override bool GameIsEnded(Board b)
+        public override bool GameIsEnded(Board b, player upToGo)
         {
             throw new NotImplementedException();
         }
 
-        public override player Winner(Board b)
+        public override int Winner(Board b)
         {
             throw new NotImplementedException();
         }
