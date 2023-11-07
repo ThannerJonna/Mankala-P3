@@ -7,19 +7,6 @@ using System.Xml.Schema;
 
 namespace Mankala
 {
-    public static class PlayerHandler
-    {
-        public static player NextPlayer(player now)
-        {
-            if (now == player.P1)
-                return player.P2;
-            else
-                return player.P1;
-        }
-    }
-
-    public enum player { P1 = 1, P2 }
-
     internal class Program
     {
         static int MaxPitCount = 50;
@@ -30,7 +17,7 @@ namespace Mankala
             MankalaFamFact fBoard = new Mankala_F();
             BoardCreator creator = fBoard.BoardBuilder();
             Board playBoard = creator.CreateBoard(); //to fix
-            
+
             MoveRule MoveHandler = fBoard.MoveHandler();
             EndOfTurnRule EndTurn = fBoard.GameTurnRule();
             EndGameRule GameEnder = fBoard.WhatIsGameRule();
