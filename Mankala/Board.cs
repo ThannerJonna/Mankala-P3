@@ -20,16 +20,3 @@ namespace Mankala
     }
 
 }
-
-/*
-*int stones = pits[place];
-    pits[place] = 0;
-    while (stones > 0)
-    {
-        place++;
-        pits[place % pits.Length]++;
-        stones--;
-    }
-    this.ruleBook.EndOfMove(this, place); 
-*/
-

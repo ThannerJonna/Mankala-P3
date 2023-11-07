@@ -17,7 +17,6 @@ namespace Mankala
     {
         public override Board CreateBoard(int pitAmount = 7, int startAmount = 4)
         {
-
             Board b = new Board(pitAmount);
             SetAllPits(startAmount, b);
             return b;
@@ -41,7 +40,7 @@ namespace Mankala
             throw new NotImplementedException();
         }
 
-        protected override void SetAllPits(int amount, Board b)
+        protected override void SetAllPits(int amount, Board b)//TODO
         {
             for (int i = 0; i < b.pits.Length; i++)
             {
