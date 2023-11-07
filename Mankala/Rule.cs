@@ -88,23 +88,27 @@ namespace Mankala
             return (firstPit + 1 / 2 * b.PitCount) % b.PitCount;
         }
 
-        //after stealing, the player never continues
-        public override bool PlayerContinues(Board b, int lastPlace)
+        protected void PointsTo(Board b, player collector, int amount)//TODO
         {
-            return false;
+            return;
+        }
+
+        public override bool PlayerContinues(Board b, int lastPlace, player current)
+        {
+            throw new NotImplementedException();
         }
     }
 
-    internal class ContiuneTurnRule : EndOfTurnRule //integrate to be mankala-rules
+    internal class WariTurn : EndOfTurnRule
     {
-        public override void EndOfMove(Board b, int lastPlace)
+        public override void EndOfMove(Board b, int lastPlace, player current)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public override bool PlayerContinues(Board b, int lastPlace)
+        public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 
