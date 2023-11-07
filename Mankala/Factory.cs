@@ -8,40 +8,33 @@ namespace Mankala
 {
     internal abstract class MankalaFamFact //abstract factory for 
     {
-        
+
         protected MankalaFamFact() { }
 
-        public abstract Board CreateBoard(int pitAmount, int startAmount);
+        public abstract BoardCreator BoardBuilder();
 
         public abstract EndOfTurnRule GameTurnRule();
 
         public abstract EndGameRule WhatIsGameRule();
-
-        public abstract void SetAllPits(int amount, Board b);
     }
 
     internal class Mankala_F : MankalaFamFact
     {
         public Mankala_F() { }
 
-        public override Board CreateBoard(int pitAmount = 7, int startAmount = 4)
+        public override BoardCreator BoardBuilder()
         {
-
-            Board b = new HomeBoard(pitAmount, RuleSet.MankalaRules());
-            SetAllPits(startAmount, b);
-            return b;
+            return new MankalaBCr();
         }
 
-        protected override void SetAllPits(int amount, Board b)
+        public override EndOfTurnRule GameTurnRule()
         {
-            int[] pits = b.pits;
-            for (int i = 0; i < pits.Length; i++)
-            {
-                if (i != 0 && i != pits.Length * 1 / 2)
-                    pits[i] = amount;
-            }
+            throw new NotImplementedException();
         }
 
-
+        public override EndGameRule WhatIsGameRule()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
