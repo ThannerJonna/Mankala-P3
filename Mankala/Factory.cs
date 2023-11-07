@@ -31,17 +31,17 @@ namespace Mankala
 
         public override EndOfTurnRule GameTurnRule()
         {
-            throw new NotImplementedException();
+            return new MankalaTurn();
         }
 
         public override MoveRule MoveHandler()
         {
-            throw new NotImplementedException();
+            return new MankalaMove();
         }
 
         public override EndGameRule WhatIsGameRule()
         {
-            throw new NotImplementedException();
+            return new MankalaEndGame();
         }
     }
 
@@ -49,22 +49,22 @@ namespace Mankala
     {
         public override BoardCreator BoardBuilder()
         {
-            throw new NotImplementedException();
+            return new WariBCr();
         }
 
         public override EndOfTurnRule GameTurnRule()
         {
-            throw new NotImplementedException();
+            return new WariTurn();
         }
 
         public override MoveRule MoveHandler()
         {
-            throw new NotImplementedException();
+            return new WariMove();
         }
 
         public override EndGameRule WhatIsGameRule()
         {
-            throw new NotImplementedException();
+            return new WariEndGame();
         }
     }
 }
