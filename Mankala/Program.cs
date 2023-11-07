@@ -28,6 +28,13 @@ namespace Mankala
         static void Main(string[] args)
         {
             MankalaFamFact fBoard = new Mankala_F();
+            BoardCreator creator = fBoard.BoardBuilder();
+            Board playBoard = creator.CreateBoard(); //to fix
+            
+            MoveRule MoveHandler = fBoard.MoveHandler();
+            EndOfTurnRule EndTurn = fBoard.GameTurnRule();
+            EndGameRule GameEnder = fBoard.WhatIsGameRule();
+
 
             string input = Console.ReadLine();
             int pitCount;
@@ -37,7 +44,6 @@ namespace Mankala
                 input = Console.ReadLine();
             }
 
-            Board playBoard = fBoard.CreateBoard(pitCount);
         }
 
         static bool Accepted(string input, out int count)

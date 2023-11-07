@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    internal abstract class MankalaFamFact //abstract factory for 
+    internal abstract class MankalaFamFact
     {
 
         protected MankalaFamFact() { }
@@ -14,6 +14,8 @@ namespace Mankala
         public abstract BoardCreator BoardBuilder();
 
         public abstract EndOfTurnRule GameTurnRule();
+
+        public abstract MoveRule MoveHandler();
 
         public abstract EndGameRule WhatIsGameRule();
     }
@@ -28,6 +30,34 @@ namespace Mankala
         }
 
         public override EndOfTurnRule GameTurnRule()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MoveRule MoveHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override EndGameRule WhatIsGameRule()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    internal class Wari_F : MankalaFamFact
+    {
+        public override BoardCreator BoardBuilder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override EndOfTurnRule GameTurnRule()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MoveRule MoveHandler()
         {
             throw new NotImplementedException();
         }
