@@ -123,7 +123,9 @@ namespace Mankala
 
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
-            throw new NotImplementedException();
+            bool p1Continue = current == player.P1 && lastPlace == 0;
+            bool p2Continue = current == player.P2 && lastPlace == b.pits.Length / 2;
+            return p1Continue || p2Continue;
         }
     }
 
