@@ -179,8 +179,11 @@ namespace Mankala
             while (stones > 0)
             {
                 place--;
-                b.pits[place % b.pits.Length]++;
-                stones--;
+                if (place != 0 && place != b.pits.Length / 2)
+                {
+                    b.pits[place % b.pits.Length]++;
+                    stones--;
+                }
             }
             return place;
         }
