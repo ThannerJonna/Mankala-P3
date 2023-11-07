@@ -1,58 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System;
 
 namespace Mankala
 {
-    public class RuleSet
-    {
-        internal List<EndGameRule> endConditions;
-        internal List<EndOfTurnRule> endTurnRules;
-
-        internal RuleSet(List<EndGameRule> gameEnders, List<EndOfTurnRule> turnRules)
-        {
-            this.endConditions = gameEnders;
-            this.endTurnRules = turnRules;
-        }
-
-        public bool GameIsEnded(Board b)
-        {
-            foreach (EndGameRule c in endConditions)
-            {
-                if (c.GameIsEnded(b))
-                    return true;
-            }
-            return false;
-        }
-
-        public void EndOfMove(Board b, int lastPlace)
-        {
-            foreach (EndOfTurnRule rule in endTurnRules)
-                rule.EndOfMove(b, lastPlace);
-        }
-
-        //insert the correct parameters
-        public bool PlayerContinues(Board b, int lastPlace)
-        {
-            foreach (EndOfTurnRule rule in endTurnRules)
-            {
-                if (rule.PlayerContinues(b, lastPlace))
-                    return true;
-            }
-            return false;
-        }
-
-        public static RuleSet MankalaRules()
-        {
-            List<EndGameRule> endGame = new List<EndGameRule>();
-            //endGame.Add();
-
-            List<EndOfTurnRule> turnRules = new List<EndOfTurnRule>();
-            turnRules.Add(new StealRule());
-
-            RuleSet theRules = new RuleSet(endGame, turnRules);
-            return theRules;
-        }
-    }
-
     //                      Abstract Rules
 
     internal abstract class EndGameRule
@@ -69,6 +21,12 @@ namespace Mankala
         public abstract bool PlayerContinues(Board b, int lastPlace);
 
         public abstract void EndOfMove(Board b, int lastPlace);
+    }
+
+    internal abstract class MoveRule
+    {
+        public MoveRule() { }
+        public abstract int Move(Board b, int start);
     }
 
 
@@ -105,7 +63,7 @@ namespace Mankala
         }
     }
 
-    internal class ContiuneTurnRule : EndOfTurnRule
+    internal class ContiuneTurnRule : EndOfTurnRule //integrate to be mankala-rules
     {
         public override void EndOfMove(Board b, int lastPlace)
         {
@@ -115,6 +73,43 @@ namespace Mankala
         public override bool PlayerContinues(Board b, int lastPlace)
         {
             throw new System.NotImplementedException();
+        }
+    }
+
+    //              MoveRules
+
+    internal class MankalaMove : MoveRule
+    {
+        public override int Move(Board b, int start)
+        {
+            int stones = pits[place];
+            pits[place] = 0;
+            while (stones > 0)
+            {
+                place++;
+                if (IsNonScoringPit(place))
+                {
+                    pits[place % pits.Length]++;
+                    stones--;
+                }
+            }
+        }
+    }
+
+    internal class WariMove : MoveRule
+    {
+        public override int Move(Board b, int start)
+        {
+            int place = start;
+            int stones = b.pits[place];
+            b.pits[place] = 0;
+            while (stones > 0)
+            {
+                place++;
+                b.pits[place % b.pits.Length]++;
+                stones--;
+            }
+            return place;
         }
     }
 }
