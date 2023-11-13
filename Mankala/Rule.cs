@@ -4,6 +4,10 @@ using System.Text;
 using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 
+/*Problemen:
+ * Veel redundancy met "IsScoringPit"
+ */
+
 namespace Mankala
 {
     //                      Abstract Rules
@@ -38,7 +42,7 @@ namespace Mankala
 
     //                              Implemented Rules
 
-    //              TurnRules
+    //              endGameRules
 
     internal class MankalaEndGame : EndGameRule
     {
@@ -101,7 +105,7 @@ namespace Mankala
         {
             // !!! needs to end in player's pit
             int endPitCount = b.pits[lastPlace];
-            if (b.IsNonScoringPit(lastPlace) && endPitCount == 1)
+            if (IsScoringPit(b.pits, lastPlace) && endPitCount == 1)
             {
                 int otherPit = OtherStealPit(b, lastPlace);
                 this.PointsTo(b, current, b.pits[otherPit] + endPitCount);
@@ -127,6 +131,11 @@ namespace Mankala
             bool p2Continue = current == player.P2 && lastPlace == b.pits.Length / 2;
             return p1Continue || p2Continue;
         }
+
+        protected bool IsScoringPit(int totalPits, int place)
+        {
+            return place == 0 || place == 1 / 2 * totalPits;
+        }
     }
 
     internal class WariTurn : EndOfTurnRule
@@ -139,6 +148,11 @@ namespace Mankala
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
             throw new NotImplementedException();
+        }
+
+        protected bool IsScoringPit(int totalPits, int place)
+        {
+            return place == 0 || place == 1 / 2 * totalPits;
         }
     }
 
@@ -163,9 +177,9 @@ namespace Mankala
             return place;
         }
 
-        protected bool IsScoringPit(int[] boardPits, int place)
+        protected bool IsScoringPit(int totalPits, int place)
         {
-            return place == 0 || place == 1 / 2 * boardPits.Length;
+            return place == 0 || place == 1 / 2 * totalPits;
         }
     }
 
@@ -186,6 +200,11 @@ namespace Mankala
                 }
             }
             return place;
+        }
+
+        protected bool IsScoringPit(int totalPits, int place)
+        {
+            return place == 0 || place == 1 / 2 * totalPits;
         }
     }
 }
