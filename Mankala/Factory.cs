@@ -8,6 +8,10 @@ namespace Mankala
 {
     internal abstract class MankalaFamFact
     {
+        public BoardCreator bCreator;
+        public EndOfTurnRule endTurn;
+        public MoveRule moveRule;
+        public EndGameRule endGameRule;
 
         protected MankalaFamFact() { }
 
@@ -22,7 +26,13 @@ namespace Mankala
 
     internal class Mankala_F : MankalaFamFact
     {
-        public Mankala_F() { }
+        public Mankala_F()
+        {
+            this.bCreator = BoardBuilder();
+            this.endTurn = GameTurnRule();
+            this.moveRule = MoveHandler();
+            this.endGameRule = WhatIsGameRule();
+        }
 
         public override BoardCreator BoardBuilder()
         {
@@ -47,6 +57,14 @@ namespace Mankala
 
     internal class Wari_F : MankalaFamFact
     {
+        public Wari_F()
+        {
+            this.bCreator = BoardBuilder();
+            this.endTurn = GameTurnRule();
+            this.moveRule = MoveHandler();
+            this.endGameRule = WhatIsGameRule();
+        }
+
         public override BoardCreator BoardBuilder()
         {
             return new WariBCr();
@@ -65,6 +83,38 @@ namespace Mankala
         public override EndGameRule WhatIsGameRule()
         {
             return new WariEndGame();
+        }
+    }
+
+    //TODO
+    internal class Splora_F : MankalaFamFact
+    {
+        public Splora_F()
+        {
+            this.bCreator = BoardBuilder();
+            this.endTurn = GameTurnRule();
+            this.moveRule = MoveHandler();
+            this.endGameRule = WhatIsGameRule();
+        }
+
+        public override BoardCreator BoardBuilder()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override EndOfTurnRule GameTurnRule()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MoveRule MoveHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override EndGameRule WhatIsGameRule()
+        {
+            throw new NotImplementedException();
         }
     }
 }
