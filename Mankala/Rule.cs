@@ -105,7 +105,7 @@ namespace Mankala
         {
             // !!! needs to end in player's pit
             int endPitCount = b.pits[lastPlace];
-            if (IsScoringPit(b.pits, lastPlace) && endPitCount == 1)
+            if (IsScoringPit(b.pits.Length, lastPlace) && endPitCount == 1)
             {
                 int otherPit = OtherStealPit(b, lastPlace);
                 this.PointsTo(b, current, b.pits[otherPit] + endPitCount);
@@ -168,7 +168,7 @@ namespace Mankala
             while (stones > 0)
             {
                 place--;
-                if (!IsScoringPit(b.pits, place))
+                if (!IsScoringPit(b.pits.Length, place))
                 {
                     b.pits[place % b.pits.Length]++;
                     stones--;
