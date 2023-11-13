@@ -16,7 +16,7 @@ namespace Mankala
         {
             MankalaFamFact fBoard = new Mankala_F();
             BoardCreator creator = fBoard.BoardBuilder();
-            Board playBoard = creator.CreateBoard(); //to fix
+            Board playBoard = creator.StandardBoard();
 
             MoveRule MoveHandler = fBoard.MoveHandler();
             EndOfTurnRule EndTurn = fBoard.GameTurnRule();
