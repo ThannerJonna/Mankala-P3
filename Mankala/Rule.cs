@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 /*Problemen:
  * Veel redundancy met "IsScoringPit"
+ * ManakalaTurn is nog niet klaar, mist nog een regel
  */
 
 namespace Mankala
@@ -92,7 +93,14 @@ namespace Mankala
 
         public override int Winner(Board b)
         {
-            throw new NotImplementedException();
+            int score1 = b.pits[0];
+            int score2 = b.pits[b.pits.Length / 2];
+
+            if (score1 > score2)
+                return 1;
+            else if (score1 < score2)
+                return 2;
+            return 0;
         }
     }
 
