@@ -66,4 +66,22 @@ namespace Mankala
             }
         }
     }
+
+    public class SploraBCr : BoardCreator
+    {
+        public override Board CreateBoard(int pitAmount, int startAmount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Board StandardBoard()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SetAllPits(int amount, Board b)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
