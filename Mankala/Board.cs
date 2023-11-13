@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using System.Media;
 
+/*Problemen:
+ */
+
 namespace Mankala
 {
     public class Board

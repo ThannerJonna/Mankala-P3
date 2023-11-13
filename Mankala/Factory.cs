@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*Problemen:
+ */
+
 namespace Mankala
 {
     internal abstract class MankalaFamFact
