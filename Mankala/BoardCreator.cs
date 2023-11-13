@@ -10,16 +10,23 @@ namespace Mankala
     {
         public abstract Board CreateBoard(int pitAmount, int startAmount);
 
+        public abstract Board StandardBoard();
+
         protected abstract void SetAllPits(int amount, Board b);
     }
 
     public class MankalaBCr : BoardCreator
     {
-        public override Board CreateBoard(int pitAmount = 7, int startAmount = 4)
+        public override Board CreateBoard(int pitAmount, int startAmount)
         {
             Board b = new Board(pitAmount);
             SetAllPits(startAmount, b);
             return b;
+        }
+
+        public override Board StandardBoard()
+        {
+            return CreateBoard(14, 4);
         }
 
         protected override void SetAllPits(int amount, Board b)
@@ -37,14 +44,22 @@ namespace Mankala
     {
         public override Board CreateBoard(int pitAmount, int startAmount)
         {
-            throw new NotImplementedException();
+            Board b = new Board(pitAmount);
+            SetAllPits(startAmount, b);
+            return b;
         }
 
-        protected override void SetAllPits(int amount, Board b)//TODO
+        public override Board StandardBoard()
+        {
+            return CreateBoard(14, 4);
+        }
+
+        protected override void SetAllPits(int amount, Board b)
         {
             for (int i = 0; i < b.pits.Length; i++)
             {
-                b.pits[i] = amount;
+                if (i != 0 && i != b.pits.Length * 1 / 2)
+                    b.pits[i] = amount;
             }
         }
     }
