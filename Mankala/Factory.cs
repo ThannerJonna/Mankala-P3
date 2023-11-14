@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*Problemen:
+ * Invullen Splora factory
+ * Checken of meteen invullen fields een probleem is
  */
 
 namespace Mankala

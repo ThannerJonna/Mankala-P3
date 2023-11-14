@@ -6,7 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 /*Problemen:
  * Veel redundancy met "IsScoringPit"
- * ManakalaTurn is nog niet klaar, mist nog een regel
+ * ManakalaTurn is nog niet klaar, mist nog een spelregel en condition
  */
 
 namespace Mankala

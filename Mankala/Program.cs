@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Xml.Schema;
 
 /*Problemen:
+ * Print functie voor het printen van het bord naar de Console
+ * Print input-instructies
+ * Lees selectie van het spel (Bool AcceptedSelection)
+ * Zoek uit of bordgrootte ook dynamisch moet zijn
  */
 
 namespace Mankala
@@ -18,12 +22,7 @@ namespace Mankala
         static void Main(string[] args)
         {
             MankalaFamFact fBoard = new Mankala_F();
-            BoardCreator creator = fBoard.BoardBuilder();
-            Board playBoard = creator.StandardBoard();
-
-            MoveRule MoveHandler = fBoard.MoveHandler();
-            EndOfTurnRule EndTurn = fBoard.GameTurnRule();
-            EndGameRule GameEnder = fBoard.WhatIsGameRule();
+                        //Factory heeft nu alle shizzle erin zitten
 
 
             string input = Console.ReadLine();

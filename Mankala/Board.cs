@@ -9,6 +9,7 @@ namespace Mankala
 {
     public class Board
     {
+        //pit number 0 is usually owned by Player 1
         public int[] pits;
         public int PitCount { get { return pits.Length; } }
 
@@ -21,6 +22,8 @@ namespace Mankala
             this.pits = new int[numPit];
         }
     }
+
+    //Player functions
     public enum player { P1 = 1, P2 }
 
     public static class PlayerHandler
