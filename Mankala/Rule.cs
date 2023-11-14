@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 /*Problemen:
  * Veel redundancy met "IsScoringPit"
  * ManakalaTurn is nog niet klaar, mist nog een spelregel en condition
+ * Methode om te bepalen bij wie een pit hoort, veel kans op redundancy
  */
 
 namespace Mankala
@@ -88,7 +89,26 @@ namespace Mankala
     {
         public override bool GameIsEnded(Board b, player upToGo)
         {
-            throw new NotImplementedException();
+            int start;
+            int end;
+
+            if (upToGo == player.P1)
+            {
+                start = 1;
+                end = b.PitCount * 1 / 2;
+            }
+            else
+            {
+                start = b.PitCount / 2 + 1;
+                end = b.PitCount;
+            }
+
+            for (int i = start; i < end; i++)
+            {
+                if (b.pits[i] > 0)
+                    return false;
+            }
+            return true;
         }
 
         public override int Winner(Board b)
