@@ -18,7 +18,13 @@ namespace Mankala
         public MoveRule moveRule;
         public EndGameRule endGameRule;
 
-        protected MankalaFamFact() { }
+        protected MankalaFamFact()
+        { //Standard filling of the fields, obviously doesn't change with the concrete factory (type)
+            this.bCreator = BoardBuilder();
+            this.endTurn = GameTurnRule();
+            this.moveRule = MoveHandler();
+            this.endGameRule = WhatIsGameRule();
+        }
 
         public abstract BoardCreator BoardBuilder();
 
@@ -31,13 +37,7 @@ namespace Mankala
 
     internal class Mankala_F : MankalaFamFact
     {
-        public Mankala_F()
-        {
-            this.bCreator = BoardBuilder();
-            this.endTurn = GameTurnRule();
-            this.moveRule = MoveHandler();
-            this.endGameRule = WhatIsGameRule();
-        }
+        public Mankala_F() { }
 
         public override BoardCreator BoardBuilder()
         {
@@ -62,13 +62,7 @@ namespace Mankala
 
     internal class Wari_F : MankalaFamFact
     {
-        public Wari_F()
-        {
-            this.bCreator = BoardBuilder();
-            this.endTurn = GameTurnRule();
-            this.moveRule = MoveHandler();
-            this.endGameRule = WhatIsGameRule();
-        }
+        public Wari_F() { }
 
         public override BoardCreator BoardBuilder()
         {
@@ -94,13 +88,7 @@ namespace Mankala
     //TODO
     internal class Splora_F : MankalaFamFact
     {
-        public Splora_F()
-        {
-            this.bCreator = BoardBuilder();
-            this.endTurn = GameTurnRule();
-            this.moveRule = MoveHandler();
-            this.endGameRule = WhatIsGameRule();
-        }
+        public Splora_F() { }
 
         public override BoardCreator BoardBuilder()
         {
