@@ -55,12 +55,12 @@ namespace Mankala
             if (upToGo == player.P1)
             {
                 start = 1;
-                end = b.pits.Length * 1 / 2;
+                end = b.PitCount * 1 / 2;
             }
             else
             {
-                start = b.pits.Length / 2 + 1;
-                end = b.pits.Length;
+                start = b.PitCount / 2 + 1;
+                end = b.PitCount;
             }
 
             for (int i = start; i < end; i++)
@@ -74,7 +74,7 @@ namespace Mankala
         public override int Winner(Board b)
         {
             int score1 = b.pits[0];
-            int score2 = b.pits[b.pits.Length / 2];
+            int score2 = b.pits[b.PitCount / 2];
 
             if (score1 > score2)
                 return 1;
@@ -94,7 +94,7 @@ namespace Mankala
         public override int Winner(Board b)
         {
             int score1 = b.pits[0];
-            int score2 = b.pits[b.pits.Length / 2];
+            int score2 = b.pits[b.PitCount / 2];
 
             if (score1 > score2)
                 return 1;
@@ -113,7 +113,7 @@ namespace Mankala
         {
             // !!! needs to end in player's pit
             int endPitCount = b.pits[lastPlace];
-            if (IsScoringPit(b.pits.Length, lastPlace) && endPitCount == 1)
+            if (IsScoringPit(b.PitCount, lastPlace) && endPitCount == 1)
             {
                 int otherPit = OtherStealPit(b, lastPlace);
                 this.PointsTo(b, current, b.pits[otherPit] + endPitCount);
@@ -136,7 +136,7 @@ namespace Mankala
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
             bool p1Continue = current == player.P1 && lastPlace == 0;
-            bool p2Continue = current == player.P2 && lastPlace == b.pits.Length / 2;
+            bool p2Continue = current == player.P2 && lastPlace == b.PitCount / 2;
             return p1Continue || p2Continue;
         }
 
@@ -176,9 +176,9 @@ namespace Mankala
             while (stones > 0)
             {
                 place--;
-                if (!IsScoringPit(b.pits.Length, place))
+                if (!IsScoringPit(b.PitCount, place))
                 {
-                    b.pits[place % b.pits.Length]++;
+                    b.pits[place % b.PitCount]++;
                     stones--;
                 }
             }
@@ -201,9 +201,9 @@ namespace Mankala
             while (stones > 0)
             {
                 place--;
-                if (place != 0 && place != b.pits.Length / 2)
+                if (place != 0 && place != b.PitCount / 2)
                 {
-                    b.pits[place % b.pits.Length]++;
+                    b.pits[place % b.PitCount]++;
                     stones--;
                 }
             }
