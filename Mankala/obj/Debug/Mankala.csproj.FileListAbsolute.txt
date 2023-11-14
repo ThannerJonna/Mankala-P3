@@ -1,0 +1,7 @@
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\bin\Debug\Mankala.exe.config
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\bin\Debug\Mankala.exe
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\bin\Debug\Mankala.pdb
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\obj\Debug\Mankala.csproj.AssemblyReference.cache
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\obj\Debug\Mankala.csproj.CoreCompileInputs.cache
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\obj\Debug\Mankala.exe
+C:\Users\jowel\Documents\Jonathan\Uni\Jaar 2\MSO Modelleren en SysteemOntwikkeling\Git Mankala\Mankala\obj\Debug\Mankala.pdb
