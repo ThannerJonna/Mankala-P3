@@ -5,9 +5,9 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 /*Problemen:
- * Veel redundancy met "IsScoringPit"
- * ManakalaTurn is nog niet klaar, mist nog een spelregel en condition
- * Methode om te bepalen bij wie een pit hoort, veel kans op redundancy
+ * Veel redundancy met "IsScoringPit" (got attention, to be completely fixed)
+ * ManakalaTurn is nog niet klaar, mist nog een condition
+ * Points to methode
  */
 
 namespace Mankala
@@ -38,7 +38,7 @@ namespace Mankala
         public MoveRule() { }
 
         //clockwise through the array is ++ and anti-clockwise is --
-        public abstract int Move(Board b, int start);
+        public abstract int Move(Board b, int start, player current);
     }
 
 
@@ -188,7 +188,18 @@ namespace Mankala
 
     internal class MankalaMove : MoveRule
     {
-        public override int Move(Board b, int start)
+        public override int Move(Board b, int start, player current)
+        {
+            int end = Distribute(b, start);
+
+            while (!StaticMankala.IsScoringPit(b.PitCount, end) && StaticMankala.Owns(current, end, b.PitCount) && b.pits[end] > 0)
+            {
+                end = Distribute(b, end);
+            }
+            return end;
+        }
+
+        protected int Distribute(Board b, int start)
         {
             int place = start;
             int stones = b.pits[place];
@@ -213,7 +224,7 @@ namespace Mankala
 
     internal class WariMove : MoveRule
     {
-        public override int Move(Board b, int start)
+        public override int Move(Board b, int start, player current)
         {
             int place = start;
             int stones = b.pits[place];
