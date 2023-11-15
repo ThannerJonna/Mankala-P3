@@ -5,8 +5,6 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 /*Problemen:
- * Veel redundancy met "IsScoringPit" (got attention, to be completely fixed)
- * ManakalaTurn is nog niet klaar, mist nog een condition
  * Points to methode
  */
 
@@ -179,24 +177,30 @@ namespace Mankala
     {
         public override int Move(Board b, int start, player current)
         {
-            int end = Distribute(b, start);
+            int end = Distribute(b, start, current);
 
-            while (!StaticMankala.IsScoringPit(b.PitCount, end) && StaticMankala.Owns(current, end, b.PitCount) && b.pits[end] > 0)
+            while (!Constants.IsScoringPit(b.PitCount, end) && b.pits[end] > 0)
             {
-                end = Distribute(b, end);
+                end = Distribute(b, end, current);
             }
             return end;
         }
 
-        protected int Distribute(Board b, int start)
+        protected int Distribute(Board b, int start, player p)
         {
             int place = start;
             int stones = b.pits[place];
             b.pits[place] = 0;
+            int skipPit;
+            if (p == player.P1)
+                skipPit = b.PitCount / 2;
+            else
+                skipPit = 0;
+
             while (stones > 0)
             {
                 place--;
-                if (!IsScoringPit(b.PitCount, place))
+                if (place != skipPit)
                 {
                     b.pits[place % b.PitCount]++;
                     stones--;
