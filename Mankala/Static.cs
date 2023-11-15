@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    internal static class StaticMankala
+    internal static class Constants
     {
         public static bool Owns(player pl, int pit, int pitCount)
         {

@@ -128,12 +128,10 @@ namespace Mankala
 
     internal class MankalaTurn : EndOfTurnRule
     {
-        //check for homebase
         public override void EndOfMove(Board b, int lastPlace, player current)
         {
-            // !!! needs to end in player's pit
             int endPitCount = b.pits[lastPlace];
-            if (IsScoringPit(b.PitCount, lastPlace) && endPitCount == 1)
+            if (Constants.Owns(current, lastPlace, b.PitCount) && !Constants.IsScoringPit(b.PitCount, lastPlace) && endPitCount == 1)
             {
                 int otherPit = OtherStealPit(b, lastPlace);
                 this.PointsTo(b, current, b.pits[otherPit] + endPitCount);
@@ -142,7 +140,6 @@ namespace Mankala
             }
         }
 
-        //check for homebase
         protected int OtherStealPit(Board b, int firstPit)
         {
             return (firstPit + 1 / 2 * b.PitCount) % b.PitCount;
@@ -173,11 +170,6 @@ namespace Mankala
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
             throw new NotImplementedException();
-        }
-
-        protected bool IsScoringPit(int totalPits, int place)
-        {
-            return place == 0 || place == 1 / 2 * totalPits;
         }
     }
 
@@ -212,11 +204,6 @@ namespace Mankala
             }
             return place;
         }
-
-        protected bool IsScoringPit(int totalPits, int place)
-        {
-            return place == 0 || place == 1 / 2 * totalPits;
-        }
     }
 
     internal class WariMove : MoveRule
@@ -236,11 +223,6 @@ namespace Mankala
                 }
             }
             return place;
-        }
-
-        protected bool IsScoringPit(int totalPits, int place)
-        {
-            return place == 0 || place == 1 / 2 * totalPits;
         }
     }
 }
