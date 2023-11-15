@@ -26,7 +26,19 @@ namespace Mankala
         {
             return pit == 0 || pit == pitCount / 2;
         }
+    }
 
+            //Player functions
+    public enum player { P1 = 1, P2 }
 
+    public static class PlayerHandler
+    {
+        public static player NextPlayer(player now)
+        {
+            if (now == player.P1)
+                return player.P2;
+            else
+                return player.P1;
+        }
     }
 }
