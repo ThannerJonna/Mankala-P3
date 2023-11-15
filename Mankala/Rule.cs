@@ -155,14 +155,11 @@ namespace Mankala
 
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
-            bool p1Continue = current == player.P1 && lastPlace == 0;
-            bool p2Continue = current == player.P2 && lastPlace == b.PitCount / 2;
-            return p1Continue || p2Continue;
-        }
-
-        protected bool IsScoringPit(int totalPits, int place)
-        {
-            return place == 0 || place == 1 / 2 * totalPits;
+            if (current == player.P1)
+                return lastPlace == 0;
+            if (current == player.P2)
+                return lastPlace == b.PitCount / 2;
+            throw new Exception("Player (type) unsupported");
         }
     }
 
