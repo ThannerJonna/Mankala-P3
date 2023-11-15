@@ -5,7 +5,6 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 /*Problemen:
- * Points to methode
  */
 
 namespace Mankala
@@ -140,12 +139,17 @@ namespace Mankala
 
         protected int OtherStealPit(Board b, int firstPit)
         {
-            return (firstPit + 1 / 2 * b.PitCount) % b.PitCount;
+            return (b.PitCount - firstPit);
         }
 
-        protected void PointsTo(Board b, player collector, int amount)//TODO
+        protected void PointsTo(Board b, player collector, int amount)
         {
-            return;
+            if (collector == player.P1)
+                b.pits[0] = +amount;
+            else if (collector == player.P2)
+                b.pits[b.PitCount / 2] = +amount;
+            else
+                throw new Exception("Player cannot be given stones");
         }
 
         public override bool PlayerContinues(Board b, int lastPlace, player current)
