@@ -22,22 +22,22 @@ namespace Mankala
         static void Main(string[] args)
         {
             MankalaFamFact fBoard = new Mankala_F();
-                        //Factory heeft nu alle shizzle erin zitten
+            //Factory heeft nu alle shizzle erin zitten
 
 
             string input = Console.ReadLine();
             int pitCount;
 
-            while (Accepted(input, out pitCount))
+            while (AcceptedPitCount(input, out pitCount))
             {
                 input = Console.ReadLine();
             }
 
         }
 
-        static bool Accepted(string input, out int count)
+        static bool AcceptedPitCount(string input, out int count)
         {
-            if (int.TryParse(input, out count))
+            if (AcceptedNumber(input, out count))
             {
                 if (count > MaxPitCount)
                 {
@@ -45,7 +45,7 @@ namespace Mankala
                 }
                 else if (count < MinPitCount)
                 {
-                    Console.WriteLine("This is too small.");
+                    Console.WriteLine("This cannot make a proper board; it is too small.");
                 }
                 else
                 {
@@ -53,12 +53,34 @@ namespace Mankala
                 }
                 return false;
             }
+            return false;
+        }
+
+        public static bool AcceptedMove(string input, out int movePit, int pitCount)
+        {
+            if (AcceptedNumber(input, out movePit))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool AcceptedNumber(string input, out int number)
+        {
+            if (int.TryParse(input, out number))
+            {
+                if (number < 0)
+                {
+                    Console.WriteLine("No negative numbers are accepted");
+                    return false;
+                }
+                return true;
+            }
             else
             {
-                Console.WriteLine("We can't turn this into a whole number.");
+                Console.WriteLine("This can't be turned this into a whole number.");
                 return false;
             }
-
         }
     }
 }
