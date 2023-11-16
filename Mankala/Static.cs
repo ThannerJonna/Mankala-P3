@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*Problems:
+ * name constants
+ * splora game in dictionary
+ */
+
 namespace Mankala
 {
     //Name is still very foggy
@@ -39,6 +44,66 @@ namespace Mankala
                 return player.P2;
             else
                 return player.P1;
+        }
+    }
+
+    public static class InputHandler
+    {
+        private static int MaxPitCount = 50;
+        private static int MinPitCount = 2;
+        internal static Dictionary<string, FamMankalaFact> madeGames = new Dictionary<string, FamMankalaFact>()
+        {
+            {"mankala", new Mankala_F() },
+            {"wari", new Wari_F() }
+            //,{"splora", new Splora_F() }
+        };
+
+        public static bool AcceptedNumber(string input, out int number)
+        {
+            if (int.TryParse(input, out number))
+            {
+                if (number < 0)
+                {
+                    Console.WriteLine("No negative numbers are accepted");
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("This can't be turned this into a whole number.");
+                return false;
+            }
+        }
+
+        public static bool AcceptedMove(string input, out int movePit, int pitCount)
+        {
+            if (AcceptedNumber(input, out movePit))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool AcceptedPitCount(string input, out int count)
+        {
+            if (AcceptedNumber(input, out count))
+            {
+                if (count > MaxPitCount)
+                {
+                    Console.WriteLine("This is bigger than we support.");
+                }
+                else if (count < MinPitCount)
+                {
+                    Console.WriteLine("This cannot make a proper board; it is too small.");
+                }
+                else
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
     }
 }

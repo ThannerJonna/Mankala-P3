@@ -16,71 +16,37 @@ namespace Mankala
 {
     internal class Program
     {
-        static int MaxPitCount = 50;
-        static int MinPitCount = 2;
-
         static void Main(string[] args)
         {
-            MankalaFamFact fBoard = new Mankala_F();
-            //Factory heeft nu alle shizzle erin zitten
+            Console.WriteLine("Welcome to the family of board games \"Mankala\"!!\n" +
+                "We have a choice of the following games:\n");
+            foreach (string name in InputHandler.madeGames.Keys)
+            {
+                Console.WriteLine(name);
+            }
+            Console.WriteLine("Choose one to play:");
+            string game = Console.ReadLine();
+            while (!InputHandler.madeGames.ContainsKey(game))
+            {
+                Console.WriteLine("Sorry, we can't seem to retrieve: " + game);
+                game = Console.ReadLine();
+            }
 
+            FamMankalaFact fBoard = InputHandler.madeGames[game];
 
+            Console.WriteLine("How big do you want the board?");
             string input = Console.ReadLine();
             int pitCount;
 
-            while (AcceptedPitCount(input, out pitCount))
+            while (!InputHandler.AcceptedPitCount(input, out pitCount))
             {
                 input = Console.ReadLine();
             }
-
         }
 
-        static bool AcceptedPitCount(string input, out int count)
+        public static void PrintBoard(Board b)
         {
-            if (AcceptedNumber(input, out count))
-            {
-                if (count > MaxPitCount)
-                {
-                    Console.WriteLine("This is bigger than we support.");
-                }
-                else if (count < MinPitCount)
-                {
-                    Console.WriteLine("This cannot make a proper board; it is too small.");
-                }
-                else
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
-        }
 
-        public static bool AcceptedMove(string input, out int movePit, int pitCount)
-        {
-            if (AcceptedNumber(input, out movePit))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static bool AcceptedNumber(string input, out int number)
-        {
-            if (int.TryParse(input, out number))
-            {
-                if (number < 0)
-                {
-                    Console.WriteLine("No negative numbers are accepted");
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("This can't be turned this into a whole number.");
-                return false;
-            }
         }
     }
 }
