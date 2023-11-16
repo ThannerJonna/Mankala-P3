@@ -11,11 +11,14 @@ namespace Mankala
 {
     public abstract class BoardCreator
     {
+        //pit amount excludes the home pits
         public abstract Board CreateBoard(int pitAmount, int startAmount);
 
         public abstract Board StandardBoard();
 
         protected abstract void SetAllPits(int amount, Board b);
+
+        public abstract string PrintBoard(Board board);
     }
 
     public class MankalaBCr : BoardCreator
@@ -25,6 +28,11 @@ namespace Mankala
             Board b = new Board(pitAmount);
             SetAllPits(startAmount, b);
             return b;
+        }
+
+        public override string PrintBoard(Board board)
+        {
+            throw new NotImplementedException();
         }
 
         public override Board StandardBoard()
@@ -65,11 +73,23 @@ namespace Mankala
                     b.pits[i] = amount;
             }
         }
+
+        public override string PrintBoard(Board board)
+        {
+            string firstLine = "/__";
+
+            return firstLine;
+        }
     }
 
     public class SploraBCr : BoardCreator
     {
         public override Board CreateBoard(int pitAmount, int startAmount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string PrintBoard(Board board)
         {
             throw new NotImplementedException();
         }
