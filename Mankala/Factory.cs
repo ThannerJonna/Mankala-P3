@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Mankala
 {
-    internal abstract class MankalaFamFact
+    internal abstract class FamMankalaFact
     {
         public BoardCreator bCreator;
         public EndOfTurnRule endTurn;
         public MoveRule moveRule;
         public EndGameRule endGameRule;
 
-        protected MankalaFamFact()
+        protected FamMankalaFact()
         { //Standard filling of the fields, obviously doesn't change with the concrete factory (type)
             this.bCreator = BoardBuilder();
             this.endTurn = GameTurnRule();
@@ -35,7 +35,7 @@ namespace Mankala
         public abstract EndGameRule WhatIsGameRule();
     }
 
-    internal class Mankala_F : MankalaFamFact
+    internal class Mankala_F : FamMankalaFact
     {
         public Mankala_F() { }
 
@@ -60,7 +60,7 @@ namespace Mankala
         }
     }
 
-    internal class Wari_F : MankalaFamFact
+    internal class Wari_F : FamMankalaFact
     {
         public Wari_F() { }
 
@@ -86,7 +86,7 @@ namespace Mankala
     }
 
     //TODO
-    internal class Splora_F : MankalaFamFact
+    internal class Splora_F : FamMankalaFact
     {
         public Splora_F() { }
 
