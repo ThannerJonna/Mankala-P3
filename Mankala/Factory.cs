@@ -85,7 +85,6 @@ namespace Mankala
         }
     }
 
-    //TODO
     internal class Splora_F : FamMankalaFact
     {
         public Splora_F() { }

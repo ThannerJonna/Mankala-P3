@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*Problems:
- * name constants
- * splora game in dictionary
- */
-
 namespace Mankala
 {
-    //Name is still very foggy
-    internal static class SharedBoardHandler //Could be SharedBoard, HomePitHandler
+    //handles basic functions that pertain to the shared board between Mankala and Wari
+    internal static class SharedBoardHandler
     {
         public static bool Owns(player pl, int pit, int pitCount)
         {

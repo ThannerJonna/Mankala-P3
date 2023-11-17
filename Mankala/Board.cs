@@ -2,9 +2,6 @@
 using System.Diagnostics;
 using System.Media;
 
-/*Problemen:
- */
-
 namespace Mankala
 {
     public class Board
@@ -12,8 +9,6 @@ namespace Mankala
         //pit number 0 is usually owned by Player 1
         public int[] pits;
         public int PitCount { get { return pits.Length; } }
-
-        protected player currentplayer = player.P1;
 
         public Board(int numPit)
         {

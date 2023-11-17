@@ -38,7 +38,7 @@ namespace Mankala
     {
         public MoveRule() { }
 
-        //clockwise through the array is ++ and anti-clockwise is --
+        //clockwise through the array generally is ++ and anti-clockwise is -- (depending on the way the board is printed)
         public abstract int Move(Board b, int start, player current);
 
         public abstract bool AcceptableMove(Board b, int pit, player play);
