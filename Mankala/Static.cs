@@ -45,6 +45,11 @@ namespace Mankala
             else
                 return player.P1;
         }
+
+        public static string PlayerString(player player)
+        {
+            return "Player " + ((int)player);
+        }
     }
 
     public static class InputHandler
