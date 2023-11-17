@@ -57,6 +57,8 @@ namespace Mankala
             {"wari", new Wari_F() }
             //,{"splora", new Splora_F() }
         };
+        private static int MaxStartAmount = 41;
+        private static int MinStartAmount = 1;
 
         public static bool AcceptedNumber(string input, out int number)
         {
@@ -71,7 +73,7 @@ namespace Mankala
             }
             else
             {
-                Console.WriteLine("This can't be turned this into a whole number.");
+                Console.WriteLine("This can't be turned into a whole number.");
                 return false;
             }
         }
@@ -96,6 +98,27 @@ namespace Mankala
                 else if (count < MinPitCount)
                 {
                     Console.WriteLine("This cannot make a proper board; it is too small.");
+                }
+                else
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public static bool AcceptedStartAmount(string input, out int count)
+        {
+            if (AcceptedNumber(input, out count))
+            {
+                if (count > MaxStartAmount)
+                {
+                    Console.WriteLine("This is more than we support.");
+                }
+                else if (count < MinStartAmount)
+                {
+                    Console.WriteLine("This cannot start a game; this amount is too small.");
                 }
                 else
                 {
