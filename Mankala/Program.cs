@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using System.Xml.Schema;
 
 /*Problemen:
- * Print functie voor het printen van het bord naar de Console
- * Print inputPitCount-instructies
- * Lees selectie van het spel (Bool AcceptedSelection)
- * Zoek uit of bordgrootte ook dynamisch moet zijn
+ * Errors handlen in de loop
+ * Doorgaan met UI bij de moveLoop  
  */
 
 namespace Mankala
@@ -36,7 +34,7 @@ namespace Mankala
                 game = Console.ReadLine().ToLower();
             }
             FamMankalaFact factory = InputHandler.madeGames[game];
-            
+
             //Creating a board
             Board gameBoard;
 
@@ -69,7 +67,7 @@ namespace Mankala
                 string inputStartAm = Console.ReadLine();
                 int startAmount;
 
-                while(!InputHandler.AcceptedStartAmount(inputStartAm, out startAmount))
+                while (!InputHandler.AcceptedStartAmount(inputStartAm, out startAmount))
                 {
                     inputStartAm = Console.ReadLine();
                 }
@@ -84,11 +82,35 @@ namespace Mankala
 
             player whoTurn = player.P1;
 
-            while(!factory.endGameRule.GameIsEnded(gameBoard, whoTurn))
+            while (!factory.endGameRule.GameIsEnded(gameBoard, whoTurn))
             {
                 Console.WriteLine("It is " + PlayerHandler.PlayerString(whoTurn) + "'s turn!");
-
-
+                (int, int) range = factory.moveRule.MoveRange(gameBoard, whoTurn);
+                Console.WriteLine("Numbered in anti-clockwise fashion starting left, you can choose pit: "
+                    + range.Item1 + "-" + range.Item2 + "of the pits on your side");
+                int chosenMove;
+                string moveInput = Console.ReadLine();
+                bool unacceptable = true;
+                while (unacceptable)
+                {
+                    if (InputHandler.AcceptedNumber(moveInput, out chosenMove))
+                    {
+                        if (factory.moveRule.AcceptableMove(gameBoard, chosenMove, whoTurn))
+                        {
+                            unacceptable = false; //we can proceed
+                        }
+                        else
+                        {
+                            Console.WriteLine("This move is not legal for this game");
+                            moveInput = Console.ReadLine();//update move, try again
+                        }
+                    }
+                    else
+                    {//not a good number
+                     //handler already gives feedback
+                        moveInput = Console.ReadLine();//update move, try again
+                    }
+                }//Proceed here!!
             }
 
 
