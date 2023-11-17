@@ -91,22 +91,22 @@ namespace Mankala
 
         public override BoardCreator BoardBuilder()
         {
-            throw new NotImplementedException();
+            return new SploraBCr();
         }
 
         public override EndOfTurnRule GameTurnRule()
         {
-            throw new NotImplementedException();
+            return new SploraTurn();
         }
 
         public override MoveRule MoveHandler()
         {
-            throw new NotImplementedException();
+            return new MankalaMove();
         }
 
         public override EndGameRule WhatIsGameRule()
         {
-            throw new NotImplementedException();
+            return new WariEndGame();
         }
     }
 }

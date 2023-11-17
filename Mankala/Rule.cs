@@ -157,7 +157,7 @@ namespace Mankala
             }
         }
 
-        protected int OtherStealPit(Board b, int firstPit)
+        protected virtual int OtherStealPit(Board b, int firstPit)
         {
             return (b.PitCount - firstPit);
         }
@@ -203,6 +203,14 @@ namespace Mankala
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
             return false;
+        }
+    }
+
+    internal class SploraTurn : MankalaTurn
+    {
+        protected override int OtherStealPit(Board b, int firstPit)
+        {
+            return (firstPit + b.PitCount / 2) % b.PitCount;
         }
     }
 

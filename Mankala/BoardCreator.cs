@@ -128,4 +128,12 @@ namespace Mankala
             return str;
         }
     }
+
+    public class SploraBCr : WariBCr
+    {
+        public override Board StandardBoard()
+        {
+            return CreateBoard(7, 6);
+        }
+    }
 }

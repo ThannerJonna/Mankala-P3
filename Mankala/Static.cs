@@ -53,9 +53,9 @@ namespace Mankala
         private static int MinPitCount = 2;
         internal static Dictionary<string, FamMankalaFact> madeGames = new Dictionary<string, FamMankalaFact>()
         {
-            {"mankala", new Mankala_F() },
-            {"wari", new Wari_F() }
-            //,{"splora", new Splora_F() }
+            {"mankala", new Mankala_F() }
+            ,{"wari", new Wari_F() }
+            ,{"splora", new Splora_F() }
         };
         private static int MaxStartAmount = 41;
         private static int MinStartAmount = 1;
