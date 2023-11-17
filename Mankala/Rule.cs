@@ -166,12 +166,15 @@ namespace Mankala
     {
         public override void EndOfMove(Board b, int lastPlace, player current)
         {
-            throw new NotImplementedException();
+            if(!Constants.Owns(current, lastPlace, b.PitCount))
+            {
+
+            }
         }
 
         public override bool PlayerContinues(Board b, int lastPlace, player current)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 
