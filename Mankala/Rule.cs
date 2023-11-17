@@ -166,9 +166,17 @@ namespace Mankala
     {
         public override void EndOfMove(Board b, int lastPlace, player current)
         {
-            if(!Constants.Owns(current, lastPlace, b.PitCount))
+            if (!Constants.Owns(current, lastPlace, b.PitCount))
             {
-
+                int points = b.pits[lastPlace];
+                if (points == 2 || points == 3)
+                {
+                    b.pits[lastPlace] = 0;
+                    if (current == player.P1)
+                        b.pits[0] += points;
+                    else
+                        b.pits[b.PitCount / 2] += points;
+                }
             }
         }
 
