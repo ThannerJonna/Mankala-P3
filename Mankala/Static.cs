@@ -33,7 +33,7 @@ namespace Mankala
         }
     }
 
-            //Player functions
+    //Player functions
     public enum player { P1 = 1, P2 }
 
     public static class PlayerHandler
@@ -81,15 +81,6 @@ namespace Mankala
                 Console.WriteLine("This can't be turned into a whole number.");
                 return false;
             }
-        }
-
-        public static bool AcceptedMove(string input, out int movePit, int pitCount)
-        {
-            if (AcceptedNumber(input, out movePit))
-            {
-                return true;
-            }
-            return false;
         }
 
         public static bool AcceptedPitCount(string input, out int count)

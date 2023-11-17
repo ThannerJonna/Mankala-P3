@@ -5,6 +5,7 @@ using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 /*Problemen:
+ * Errors gooien voor moves enzo
  */
 
 namespace Mankala
@@ -36,6 +37,10 @@ namespace Mankala
 
         //clockwise through the array is ++ and anti-clockwise is --
         public abstract int Move(Board b, int start, player current);
+
+        public abstract bool AcceptableMove(Board b, int pit, player play);
+
+        public abstract (int, int) MoveRange(Board b, player play);
     }
 
 
@@ -190,10 +195,27 @@ namespace Mankala
 
     internal class MankalaMove : MoveRule
     {
+        public override bool AcceptableMove(Board b, int pit, player play)
+        {
+            (int, int) range = MoveRange(b, play);
+            if (pit >= range.Item1 && pit <= range.Item2)
+                return b.pits[pit] > 0;
+            return false;
+        }
+
+        public override (int, int) MoveRange(Board b, player play)
+        {
+            if (play == player.P1)
+                return (1, b.PitCount / 2 - 1);
+            else
+                return (b.PitCount / 2 + 1, b.PitCount - 1);
+        }
+
         public override int Move(Board b, int start, player current)
         {
             int end = Distribute(b, start, current);
 
+            //repeating distribution
             while (!Constants.IsScoringPit(b.PitCount, end) && b.pits[end] > 0)
             {
                 end = Distribute(b, end, current);
@@ -203,6 +225,9 @@ namespace Mankala
 
         protected int Distribute(Board b, int start, player p)
         {
+            if (start == 0 || start == b.PitCount / 2)
+                throw new Exception("You cannot move from the collection pits");
+
             int place = start;
             int stones = b.pits[place];
             b.pits[place] = 0;
@@ -227,21 +252,40 @@ namespace Mankala
 
     internal class WariMove : MoveRule
     {
+        public override bool AcceptableMove(Board b, int pit, player play)
+        {
+            (int, int) range = MoveRange(b, play);
+            if (pit >= range.Item1 && pit <= range.Item2)
+                return b.pits[pit] > 0;
+            return false;
+        }
+
         public override int Move(Board b, int start, player current)
         {
+            if (start == 0 || start == b.PitCount / 2)
+                throw new Exception("You cannot move from the collection pits");
+
             int place = start;
             int stones = b.pits[place];
             b.pits[place] = 0;
             while (stones > 0)
             {
                 place--;
-                if (place != 0 && place != b.PitCount / 2)
+                if (place != 0 && place != b.PitCount / 2)//place isn't a collection pit
                 {
                     b.pits[place % b.PitCount]++;
                     stones--;
                 }
             }
             return place;
+        }
+
+        public override (int, int) MoveRange(Board b, player play)
+        {
+            if (play == player.P1)
+                return (1, b.PitCount / 2 - 1);
+            else
+                return (b.PitCount / 2 + 1, b.PitCount - 1);
         }
     }
 }
