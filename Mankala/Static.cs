@@ -54,7 +54,7 @@ namespace Mankala
 
     public static class InputHandler
     {
-        private static int MaxPitCount = 50;
+        private static int MaxPitCount = 24;
         private static int MinPitCount = 2;
         internal static Dictionary<string, FamMankalaFact> madeGames = new Dictionary<string, FamMankalaFact>()
         {

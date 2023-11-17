@@ -68,7 +68,7 @@ namespace Mankala
         {
             string str = "";
             string sNum = num.ToString();
-            int diff = sNum.Length - 4;
+            int diff = 4 - sNum.Length;
 
             str = new string(' ', (diff + 1) / 2) + sNum + new string(' ', diff / 2);
             return str;
@@ -79,14 +79,14 @@ namespace Mankala
     {
         public override Board CreateBoard(int pitAmount, int startAmount)
         {
-            Board b = new Board(pitAmount);
+            Board b = new Board(pitAmount + 2);//adding in the 2 collection pits
             SetAllPits(startAmount, b);
             return b;
         }
 
         public override Board StandardBoard()
         {
-            return CreateBoard(14, 4);
+            return CreateBoard(2 * 6, 4);
         }
 
         protected override void SetAllPits(int amount, Board b)
@@ -122,7 +122,7 @@ namespace Mankala
         {
             string str = "";
             string sNum = num.ToString();
-            int diff = sNum.Length - 4;
+            int diff = 4 - sNum.Length;
 
             str = new string(' ', (diff + 1) / 2) + sNum + new string(' ', diff / 2);
             return str;
