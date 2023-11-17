@@ -20,6 +20,9 @@ namespace Mankala
 
         //returns player number of winner or returns 0 if a draw
         public abstract int Winner(Board b);
+
+        //player number corresponds with player points
+        public abstract int[] Points(Board b);
     }
 
     internal abstract class EndOfTurnRule
@@ -74,6 +77,11 @@ namespace Mankala
             return true;
         }
 
+        public override int[] Points(Board b)
+        {
+            return new int[] { -1, b.pits[0], b.pits[b.PitCount / 2] };
+        }
+
         public override int Winner(Board b)
         {
             int score1 = b.pits[0];
@@ -124,6 +132,11 @@ namespace Mankala
                 return 2;
             return 0;
         }
+
+        public override int[] Points(Board b)
+        {
+            return new int[] { -1, b.pits[0], b.pits[b.PitCount / 2] };
+        }
     }
 
     //              TurnRules
@@ -133,10 +146,12 @@ namespace Mankala
         public override void EndOfMove(Board b, int lastPlace, player current)
         {
             int endPitCount = b.pits[lastPlace];
-            if (Constants.Owns(current, lastPlace, b.PitCount) && !Constants.IsScoringPit(b.PitCount, lastPlace) && endPitCount == 1)
+            int otherPit = OtherStealPit(b, lastPlace);
+            int stealPitCount = b.pits[otherPit];
+            if (Constants.Owns(current, lastPlace, b.PitCount) && !Constants.IsScoringPit(lastPlace, b.PitCount)
+                && stealPitCount > 0 && endPitCount == 1)
             {
-                int otherPit = OtherStealPit(b, lastPlace);
-                this.PointsTo(b, current, b.pits[otherPit] + endPitCount);
+                this.PointsTo(b, current, stealPitCount + endPitCount);
                 b.pits[otherPit] = 0;
                 b.pits[lastPlace] = 0;
             }
@@ -152,7 +167,7 @@ namespace Mankala
             if (collector == player.P1)
                 b.pits[0] = +amount;
             else if (collector == player.P2)
-                b.pits[b.PitCount / 2] = +amount;
+                b.pits[b.PitCount / 2] += amount;
             else
                 throw new Exception("Player cannot be given stones");
         }
@@ -215,8 +230,8 @@ namespace Mankala
         {
             int end = Distribute(b, start, current);
 
-            //repeating distribution
-            while (!Constants.IsScoringPit(b.PitCount, end) && b.pits[end] > 0)
+            //Applying the combo's
+            while (!Constants.IsScoringPit(end, b.PitCount) && b.pits[end] > 1)
             {
                 end = Distribute(b, end, current);
             }
@@ -240,9 +255,11 @@ namespace Mankala
             while (stones > 0)
             {
                 place--;
+                if (place < 0)
+                    place += b.PitCount;
                 if (place != skipPit)
                 {
-                    b.pits[place % b.PitCount]++;
+                    b.pits[place]++;
                     stones--;
                 }
             }
@@ -271,9 +288,10 @@ namespace Mankala
             while (stones > 0)
             {
                 place--;
+                if (place < 0) place += b.PitCount;
                 if (place != 0 && place != b.PitCount / 2)//place isn't a collection pit
                 {
-                    b.pits[place % b.PitCount]++;
+                    b.pits[place]++;
                     stones--;
                 }
             }
