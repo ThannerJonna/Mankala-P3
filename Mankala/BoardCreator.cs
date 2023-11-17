@@ -11,8 +11,7 @@ namespace Mankala
 {
     public abstract class BoardCreator
     {
-        //pit amount excludes the home pits
-        public abstract Board CreateBoard(int pitAmount, int startAmount);
+        public abstract Board CreateBoard(int pitAmount, int startAmount);//pit amount excludes the home pits
 
         public abstract Board StandardBoard();
 
@@ -30,11 +29,6 @@ namespace Mankala
             return b;
         }
 
-        public override string PrintBoard(Board board)
-        {
-            throw new NotImplementedException();
-        }
-
         public override Board StandardBoard()
         {
             return CreateBoard(14, 4);
@@ -48,6 +42,36 @@ namespace Mankala
                 if (i != 0 && i != pits.Length * 1 / 2)
                     pits[i] = amount;
             }
+        }
+
+        public override string PrintBoard(Board board)
+        {
+            int midPits = board.PitCount / 2 - 1;
+
+            string firstLine = "    "; // 4 spaces
+            string secondLine = AdaptNum(board.pits[0]);
+            string thirdLine = "    ";
+            for (int i = 1; i <= midPits; i++)
+            {
+                firstLine += "|" + AdaptNum(board.pits[i]);
+                secondLine += "|----";
+                thirdLine += "|" + AdaptNum(board.pits[board.PitCount - i]);
+            }
+            firstLine += "|    ";
+            secondLine += "|" + AdaptNum(board.pits[board.PitCount / 2]);
+            thirdLine += "|    ";
+
+            return firstLine + "\n" + secondLine + "\n" + thirdLine;
+        }
+
+        protected string AdaptNum(int num)
+        {
+            string str = "";
+            string sNum = num.ToString();
+            int diff = sNum.Length - 4;
+
+            str = new string(' ', (diff + 1) / 2) + sNum + new string(' ', diff / 2);
+            return str;
         }
     }
 
@@ -76,9 +100,32 @@ namespace Mankala
 
         public override string PrintBoard(Board board)
         {
-            string firstLine = "/__";
+            int midPits = board.PitCount / 2 - 1;
 
-            return firstLine;
+            string firstLine = "    "; // 4 spaces
+            string secondLine = AdaptNum(board.pits[0]);
+            string thirdLine = "    ";
+            for (int i = 1; i <= midPits; i++)
+            {
+                firstLine += "|" + AdaptNum(board.pits[i]);
+                secondLine += "|----";
+                thirdLine += "|" + AdaptNum(board.pits[board.PitCount - i]);
+            }
+            firstLine += "|    ";
+            secondLine += "|" + AdaptNum(board.pits[board.PitCount / 2]);
+            thirdLine += "|    ";
+
+            return firstLine + "\n" + secondLine + "\n" + thirdLine;
+        }
+
+        protected string AdaptNum(int num)
+        {
+            string str = "";
+            string sNum = num.ToString();
+            int diff = sNum.Length - 4;
+
+            str = new string(' ', (diff + 1) / 2) + sNum + new string(' ', diff / 2);
+            return str;
         }
     }
 
