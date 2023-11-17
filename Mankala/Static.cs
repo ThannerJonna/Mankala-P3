@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Mankala
 {
     //Name is still very foggy
-    internal static class Constants //Could be SharedBoard, HomePitHandler
+    internal static class SharedBoardHandler //Could be SharedBoard, HomePitHandler
     {
         public static bool Owns(player pl, int pit, int pitCount)
         {

@@ -148,7 +148,7 @@ namespace Mankala
             int endPitCount = b.pits[lastPlace];
             int otherPit = OtherStealPit(b, lastPlace);
             int stealPitCount = b.pits[otherPit];
-            if (Constants.Owns(current, lastPlace, b.PitCount) && !Constants.IsScoringPit(lastPlace, b.PitCount)
+            if (SharedBoardHandler.Owns(current, lastPlace, b.PitCount) && !SharedBoardHandler.IsScoringPit(lastPlace, b.PitCount)
                 && stealPitCount > 0 && endPitCount == 1)
             {
                 this.PointsTo(b, current, stealPitCount + endPitCount);
@@ -186,7 +186,7 @@ namespace Mankala
     {
         public override void EndOfMove(Board b, int lastPlace, player current)
         {
-            if (!Constants.Owns(current, lastPlace, b.PitCount))
+            if (!SharedBoardHandler.Owns(current, lastPlace, b.PitCount))
             {
                 int points = b.pits[lastPlace];
                 if (points == 2 || points == 3)
@@ -231,7 +231,7 @@ namespace Mankala
             int end = Distribute(b, start, current);
 
             //Applying the combo's
-            while (!Constants.IsScoringPit(end, b.PitCount) && b.pits[end] > 1)
+            while (!SharedBoardHandler.IsScoringPit(end, b.PitCount) && b.pits[end] > 1)
             {
                 end = Distribute(b, end, current);
             }
